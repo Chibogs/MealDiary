@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "498733656459",
+    "project_id": "meal-planner-9746a",
+    "storage_bucket": "meal-planner-9746a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498733656459:android:0839cb02b8bee4b66fe78e",
+        "android_client_info": {
+          "package_name": "com.mealplanner.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsHWZNWma9G3Wt8kGB9fbBirVmk1rGC0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
