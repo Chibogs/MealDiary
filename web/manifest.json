@@ -1,6 +1,6 @@
 {
-    "name": "Meal Diary",
-    "short_name": "Meal Diary",
+    "name": "MealDiary",
+    "short_name": "MealDiary",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

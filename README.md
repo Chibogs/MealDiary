@@ -1,4 +1,4 @@
-# Meal Diary
+# MealDiary
 
 A new Flutter project.
 
