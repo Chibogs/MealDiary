@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:math';
-import 'add_dinner_widget.dart' show AddDinnerWidget;
+import 'meal_card_user_recipe_widget.dart' show MealCardUserRecipeWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -12,7 +12,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AddDinnerModel extends FlutterFlowModel<AddDinnerWidget> {
+class MealCardUserRecipeModel
+    extends FlutterFlowModel<MealCardUserRecipeWidget> {
+  ///  Local state fields for this component.
+
+  DateTime? startDate;
+
   @override
   void initState(BuildContext context) {}
 

@@ -23,3 +23,7 @@ String returnProfileGreeting(DateTime timestamp) {
     return "Goodnight,";
   }
 }
+
+String formatNextLine(String ingredients) {
+  return ingredients.replaceAll('_', '\n');
+}

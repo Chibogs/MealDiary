@@ -6,13 +6,13 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'insert_lunch_widget.dart' show InsertLunchWidget;
+import 'edit_dinner_widget.dart' show EditDinnerWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class InsertLunchModel extends FlutterFlowModel<InsertLunchWidget> {
+class EditDinnerModel extends FlutterFlowModel<EditDinnerWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

@@ -8,8 +8,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class RecipeRecord extends FirestoreRecord {
-  RecipeRecord._(
+class UserRecipeRecord extends FirestoreRecord {
+  UserRecipeRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -41,10 +41,10 @@ class RecipeRecord extends FirestoreRecord {
   int get mealCalories => _mealCalories ?? 0;
   bool hasMealCalories() => _mealCalories != null;
 
-  // "meal_instruction" field.
-  String? _mealInstruction;
-  String get mealInstruction => _mealInstruction ?? '';
-  bool hasMealInstruction() => _mealInstruction != null;
+  // "meal_instructions" field.
+  String? _mealInstructions;
+  String get mealInstructions => _mealInstructions ?? '';
+  bool hasMealInstructions() => _mealInstructions != null;
 
   void _initializeFields() {
     _mealName = snapshotData['meal_name'] as String?;
@@ -52,48 +52,49 @@ class RecipeRecord extends FirestoreRecord {
     _mealIngredients = snapshotData['meal_ingredients'] as String?;
     _mealAllergens = getDataList(snapshotData['meal_allergens']);
     _mealCalories = castToType<int>(snapshotData['meal_calories']);
-    _mealInstruction = snapshotData['meal_instruction'] as String?;
+    _mealInstructions = snapshotData['meal_instructions'] as String?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('recipe');
+      FirebaseFirestore.instance.collection('user_recipe');
 
-  static Stream<RecipeRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => RecipeRecord.fromSnapshot(s));
+  static Stream<UserRecipeRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => UserRecipeRecord.fromSnapshot(s));
 
-  static Future<RecipeRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => RecipeRecord.fromSnapshot(s));
+  static Future<UserRecipeRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => UserRecipeRecord.fromSnapshot(s));
 
-  static RecipeRecord fromSnapshot(DocumentSnapshot snapshot) => RecipeRecord._(
+  static UserRecipeRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      UserRecipeRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static RecipeRecord getDocumentFromData(
+  static UserRecipeRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      RecipeRecord._(reference, mapFromFirestore(data));
+      UserRecipeRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'RecipeRecord(reference: ${reference.path}, data: $snapshotData)';
+      'UserRecipeRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is RecipeRecord &&
+      other is UserRecipeRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createRecipeRecordData({
+Map<String, dynamic> createUserRecipeRecordData({
   String? mealName,
   String? mealImage,
   String? mealIngredients,
   int? mealCalories,
-  String? mealInstruction,
+  String? mealInstructions,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -101,37 +102,37 @@ Map<String, dynamic> createRecipeRecordData({
       'meal_image': mealImage,
       'meal_ingredients': mealIngredients,
       'meal_calories': mealCalories,
-      'meal_instruction': mealInstruction,
+      'meal_instructions': mealInstructions,
     }.withoutNulls,
   );
 
   return firestoreData;
 }
 
-class RecipeRecordDocumentEquality implements Equality<RecipeRecord> {
-  const RecipeRecordDocumentEquality();
+class UserRecipeRecordDocumentEquality implements Equality<UserRecipeRecord> {
+  const UserRecipeRecordDocumentEquality();
 
   @override
-  bool equals(RecipeRecord? e1, RecipeRecord? e2) {
+  bool equals(UserRecipeRecord? e1, UserRecipeRecord? e2) {
     const listEquality = ListEquality();
     return e1?.mealName == e2?.mealName &&
         e1?.mealImage == e2?.mealImage &&
         e1?.mealIngredients == e2?.mealIngredients &&
         listEquality.equals(e1?.mealAllergens, e2?.mealAllergens) &&
         e1?.mealCalories == e2?.mealCalories &&
-        e1?.mealInstruction == e2?.mealInstruction;
+        e1?.mealInstructions == e2?.mealInstructions;
   }
 
   @override
-  int hash(RecipeRecord? e) => const ListEquality().hash([
+  int hash(UserRecipeRecord? e) => const ListEquality().hash([
         e?.mealName,
         e?.mealImage,
         e?.mealIngredients,
         e?.mealAllergens,
         e?.mealCalories,
-        e?.mealInstruction
+        e?.mealInstructions
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is RecipeRecord;
+  bool isValidKey(Object? o) => o is UserRecipeRecord;
 }

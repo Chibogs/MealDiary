@@ -10,28 +10,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'insert_dinner_model.dart';
-export 'insert_dinner_model.dart';
+import 'create_lunch_model.dart';
+export 'create_lunch_model.dart';
 
-class InsertDinnerWidget extends StatefulWidget {
-  const InsertDinnerWidget({super.key});
+class CreateLunchWidget extends StatefulWidget {
+  const CreateLunchWidget({super.key});
 
   @override
-  State<InsertDinnerWidget> createState() => _InsertDinnerWidgetState();
+  State<CreateLunchWidget> createState() => _CreateLunchWidgetState();
 }
 
-class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
-  late InsertDinnerModel _model;
+class _CreateLunchWidgetState extends State<CreateLunchWidget> {
+  late CreateLunchModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InsertDinnerModel());
+    _model = createModel(context, () => CreateLunchModel());
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'InsertDinner'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'createLunch'});
     _model.mealNameTextController ??= TextEditingController();
     _model.mealNameFocusNode ??= FocusNode();
 
@@ -53,6 +52,8 @@ class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -66,7 +67,7 @@ class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Dinner',
+                'Lunch',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0.0,
@@ -96,7 +97,7 @@ class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  logFirebaseEvent('INSERT_DINNER_close_rounded_ICN_ON_TAP');
+                  logFirebaseEvent('CREATE_LUNCH_close_rounded_ICN_ON_TAP');
                   logFirebaseEvent('IconButton_navigate_back');
                   context.safePop();
                 },
@@ -161,7 +162,7 @@ class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
                                         FFButtonWidget(
                                           onPressed: () async {
                                             logFirebaseEvent(
-                                                'INSERT_DINNER_UPLOAD_IMAGE_BTN_ON_TAP');
+                                                'CREATE_LUNCH_UPLOAD_IMAGE_BTN_ON_TAP');
                                             logFirebaseEvent(
                                                 'Button_upload_media_to_firebase');
                                             final selectedMedia =
@@ -587,19 +588,19 @@ class _InsertDinnerWidgetState extends State<InsertDinnerWidget> {
                           16.0, 12.0, 16.0, 12.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'INSERT_DINNER_PAGE_SAVE_BTN_ON_TAP');
+                          logFirebaseEvent('CREATE_LUNCH_PAGE_SAVE_BTN_ON_TAP');
                           logFirebaseEvent('Button_backend_call');
 
-                          await MealDinnerRecord.collection
+                          await MealLunchRecord.collection
                               .doc()
-                              .set(createMealDinnerRecordData(
+                              .set(createMealLunchRecordData(
                                 mealName: _model.mealNameTextController.text,
                                 mealImage: _model.uploadedFileUrl,
                                 mealIngredients:
                                     _model.ingredientsTextController.text,
                                 mealCalories: int.tryParse(
                                     _model.mealCalTextController.text),
+                                timeCreated: FFAppState().selectedDate,
                               ));
                           logFirebaseEvent('Button_navigate_to');
 

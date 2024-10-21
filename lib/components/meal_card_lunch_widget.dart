@@ -10,19 +10,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'add_breakfast_model.dart';
-export 'add_breakfast_model.dart';
+import 'meal_card_lunch_model.dart';
+export 'meal_card_lunch_model.dart';
 
-class AddBreakfastWidget extends StatefulWidget {
-  const AddBreakfastWidget({super.key});
+class MealCardLunchWidget extends StatefulWidget {
+  const MealCardLunchWidget({super.key});
 
   @override
-  State<AddBreakfastWidget> createState() => _AddBreakfastWidgetState();
+  State<MealCardLunchWidget> createState() => _MealCardLunchWidgetState();
 }
 
-class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
+class _MealCardLunchWidgetState extends State<MealCardLunchWidget>
     with TickerProviderStateMixin {
-  late AddBreakfastModel _model;
+  late MealCardLunchModel _model;
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -35,7 +35,7 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddBreakfastModel());
+    _model = createModel(context, () => MealCardLunchModel());
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -77,8 +77,15 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<MealBreakfastRecord>>(
-      stream: queryMealBreakfastRecord(),
+    context.watch<FFAppState>();
+
+    return StreamBuilder<List<MealLunchRecord>>(
+      stream: queryMealLunchRecord(
+        queryBuilder: (mealLunchRecord) => mealLunchRecord.where(
+          'time_created',
+          isEqualTo: FFAppState().selectedDate,
+        ),
+      ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -94,17 +101,17 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
             ),
           );
         }
-        List<MealBreakfastRecord> listViewMealBreakfastRecordList =
-            snapshot.data!;
+        List<MealLunchRecord> listViewMealLunchRecordList = snapshot.data!;
 
         return ListView.builder(
           padding: EdgeInsets.zero,
+          primary: false,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: listViewMealBreakfastRecordList.length,
+          itemCount: listViewMealLunchRecordList.length,
           itemBuilder: (context, listViewIndex) {
-            final listViewMealBreakfastRecord =
-                listViewMealBreakfastRecordList[listViewIndex];
+            final listViewMealLunchRecord =
+                listViewMealLunchRecordList[listViewIndex];
             return Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 32.0),
               child: Container(
@@ -136,7 +143,7 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
                         topRight: Radius.circular(12.0),
                       ),
                       child: Image.network(
-                        listViewMealBreakfastRecord.mealImage,
+                        listViewMealLunchRecord.mealImage,
                         width: double.infinity,
                         height: 260.0,
                         fit: BoxFit.cover,
@@ -152,7 +159,7 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
                           Expanded(
                             flex: 7,
                             child: Text(
-                              listViewMealBreakfastRecord.mealName,
+                              listViewMealLunchRecord.mealName,
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
@@ -162,20 +169,77 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
                             ),
                           ),
                           FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
                             borderRadius: 8.0,
-                            buttonSize: 35.0,
-                            fillColor: FlutterFlowTheme.of(context).error,
+                            buttonSize: 48.0,
+                            fillColor:
+                                FlutterFlowTheme.of(context).secondaryText,
                             icon: FaIcon(
-                              FontAwesomeIcons.trashAlt,
+                              FontAwesomeIcons.pen,
                               color: FlutterFlowTheme.of(context).info,
                               size: 16.0,
                             ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'MEAL_CARD_LUNCH_COMP_pen_ICN_ON_TAP');
+                              logFirebaseEvent('IconButton_navigate_to');
+
+                              context.pushNamed(
+                                'editLunch',
+                                queryParameters: {
+                                  'userRef': serializeParam(
+                                    listViewMealLunchRecord.reference,
+                                    ParamType.DocumentReference,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: FlutterFlowIconButton(
+                              borderRadius: 8.0,
+                              buttonSize: 48.0,
+                              fillColor: FlutterFlowTheme.of(context).error,
+                              icon: FaIcon(
+                                FontAwesomeIcons.trashAlt,
+                                color: FlutterFlowTheme.of(context).info,
+                                size: 16.0,
+                              ),
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'MEAL_CARD_LUNCH_COMP_trashAlt_ICN_ON_TAP');
+                                logFirebaseEvent('IconButton_backend_call');
+                                await listViewMealLunchRecord.reference
+                                    .delete();
+                              },
+                            ),
                           ),
                         ],
                       ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            dateTimeFormat(
+                              "MMMMEEEEd",
+                              listViewMealLunchRecord.timeCreated!,
+                              locale: FFLocalizations.of(context).languageCode,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       width: 294.0,
@@ -186,7 +250,7 @@ class _AddBreakfastWidgetState extends State<AddBreakfastWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 6.0, 0.0, 12.0),
                         child: Text(
-                          'Ordered on Feb 15, 2022',
+                          listViewMealLunchRecord.mealIngredients,
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',

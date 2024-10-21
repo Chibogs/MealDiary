@@ -10,39 +10,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'insert_recipe_model.dart';
-export 'insert_recipe_model.dart';
+import 'create_dinner_model.dart';
+export 'create_dinner_model.dart';
 
-class InsertRecipeWidget extends StatefulWidget {
-  const InsertRecipeWidget({super.key});
+class CreateDinnerWidget extends StatefulWidget {
+  const CreateDinnerWidget({super.key});
 
   @override
-  State<InsertRecipeWidget> createState() => _InsertRecipeWidgetState();
+  State<CreateDinnerWidget> createState() => _CreateDinnerWidgetState();
 }
 
-class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
-  late InsertRecipeModel _model;
+class _CreateDinnerWidgetState extends State<CreateDinnerWidget> {
+  late CreateDinnerModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InsertRecipeModel());
+    _model = createModel(context, () => CreateDinnerModel());
 
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'InsertRecipe'});
-    _model.mealTextController ??= TextEditingController();
-    _model.mealFocusNode ??= FocusNode();
+        parameters: {'screen_name': 'createDinner'});
+    _model.mealNameTextController ??= TextEditingController();
+    _model.mealNameFocusNode ??= FocusNode();
 
-    _model.caloriesTextController ??= TextEditingController();
-    _model.caloriesFocusNode ??= FocusNode();
+    _model.mealCalTextController ??= TextEditingController();
+    _model.mealCalFocusNode ??= FocusNode();
 
     _model.ingredientsTextController ??= TextEditingController();
     _model.ingredientsFocusNode ??= FocusNode();
-
-    _model.instructionsTextController ??= TextEditingController();
-    _model.instructionsFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -56,6 +53,8 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -69,7 +68,7 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Recipe',
+                'Dinner',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0.0,
@@ -99,7 +98,7 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  logFirebaseEvent('INSERT_RECIPE_close_rounded_ICN_ON_TAP');
+                  logFirebaseEvent('CREATE_DINNER_close_rounded_ICN_ON_TAP');
                   logFirebaseEvent('IconButton_navigate_back');
                   context.safePop();
                 },
@@ -164,7 +163,7 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                                         FFButtonWidget(
                                           onPressed: () async {
                                             logFirebaseEvent(
-                                                'INSERT_RECIPE_UPLOAD_IMAGE_BTN_ON_TAP');
+                                                'CREATE_DINNER_UPLOAD_IMAGE_BTN_ON_TAP');
                                             logFirebaseEvent(
                                                 'Button_upload_media_to_firebase');
                                             final selectedMedia =
@@ -262,8 +261,9 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                                           ),
                                         ),
                                         TextFormField(
-                                          controller: _model.mealTextController,
-                                          focusNode: _model.mealFocusNode,
+                                          controller:
+                                              _model.mealNameTextController,
+                                          focusNode: _model.mealNameFocusNode,
                                           autofocus: true,
                                           textCapitalization:
                                               TextCapitalization.words,
@@ -359,13 +359,13 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primary,
                                           validator: _model
-                                              .mealTextControllerValidator
+                                              .mealNameTextControllerValidator
                                               .asValidator(context),
                                         ),
                                         TextFormField(
                                           controller:
-                                              _model.caloriesTextController,
-                                          focusNode: _model.caloriesFocusNode,
+                                              _model.mealCalTextController,
+                                          focusNode: _model.mealCalFocusNode,
                                           autofocus: true,
                                           textCapitalization:
                                               TextCapitalization.words,
@@ -457,7 +457,7 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primary,
                                           validator: _model
-                                              .caloriesTextControllerValidator
+                                              .mealCalTextControllerValidator
                                               .asValidator(context),
                                         ),
                                         TextFormField(
@@ -562,108 +562,6 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                                               .ingredientsTextControllerValidator
                                               .asValidator(context),
                                         ),
-                                        TextFormField(
-                                          controller:
-                                              _model.instructionsTextController,
-                                          focusNode:
-                                              _model.instructionsFocusNode,
-                                          autofocus: true,
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Instructions',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            alignLabelWithHint: true,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            errorStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 16.0, 16.0, 16.0),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                          maxLines: 9,
-                                          minLines: 5,
-                                          cursorColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                          validator: _model
-                                              .instructionsTextControllerValidator
-                                              .asValidator(context),
-                                        ),
                                       ].divide(SizedBox(height: 12.0)),
                                     ),
                                   ),
@@ -692,19 +590,19 @@ class _InsertRecipeWidgetState extends State<InsertRecipeWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent(
-                              'INSERT_RECIPE_PAGE_SAVE_BTN_ON_TAP');
+                              'CREATE_DINNER_PAGE_SAVE_BTN_ON_TAP');
                           logFirebaseEvent('Button_backend_call');
 
-                          await RecipeRecord.collection
+                          await MealDinnerRecord.collection
                               .doc()
-                              .set(createRecipeRecordData(
-                                mealName: _model.mealTextController.text,
+                              .set(createMealDinnerRecordData(
+                                mealName: _model.mealNameTextController.text,
                                 mealImage: _model.uploadedFileUrl,
                                 mealIngredients:
                                     _model.ingredientsTextController.text,
                                 mealCalories: int.tryParse(
-                                    _model.caloriesTextController.text),
-                                mealInstructions: '',
+                                    _model.mealCalTextController.text),
+                                timeCreated: FFAppState().selectedDate,
                               ));
                           logFirebaseEvent('Button_navigate_to');
 

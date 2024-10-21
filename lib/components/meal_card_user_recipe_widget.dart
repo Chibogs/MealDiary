@@ -10,19 +10,20 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'add_dinner_model.dart';
-export 'add_dinner_model.dart';
+import 'meal_card_user_recipe_model.dart';
+export 'meal_card_user_recipe_model.dart';
 
-class AddDinnerWidget extends StatefulWidget {
-  const AddDinnerWidget({super.key});
+class MealCardUserRecipeWidget extends StatefulWidget {
+  const MealCardUserRecipeWidget({super.key});
 
   @override
-  State<AddDinnerWidget> createState() => _AddDinnerWidgetState();
+  State<MealCardUserRecipeWidget> createState() =>
+      _MealCardUserRecipeWidgetState();
 }
 
-class _AddDinnerWidgetState extends State<AddDinnerWidget>
+class _MealCardUserRecipeWidgetState extends State<MealCardUserRecipeWidget>
     with TickerProviderStateMixin {
-  late AddDinnerModel _model;
+  late MealCardUserRecipeModel _model;
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -35,7 +36,7 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddDinnerModel());
+    _model = createModel(context, () => MealCardUserRecipeModel());
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -77,8 +78,8 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<MealDinnerRecord>>(
-      stream: queryMealDinnerRecord(),
+    return StreamBuilder<List<UserRecipeRecord>>(
+      stream: queryUserRecipeRecord(),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -94,16 +95,17 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
             ),
           );
         }
-        List<MealDinnerRecord> listViewMealDinnerRecordList = snapshot.data!;
+        List<UserRecipeRecord> listViewUserRecipeRecordList = snapshot.data!;
 
         return ListView.builder(
           padding: EdgeInsets.zero,
+          primary: false,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: listViewMealDinnerRecordList.length,
+          itemCount: listViewUserRecipeRecordList.length,
           itemBuilder: (context, listViewIndex) {
-            final listViewMealDinnerRecord =
-                listViewMealDinnerRecordList[listViewIndex];
+            final listViewUserRecipeRecord =
+                listViewUserRecipeRecordList[listViewIndex];
             return Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 32.0),
               child: Container(
@@ -135,7 +137,7 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
                         topRight: Radius.circular(12.0),
                       ),
                       child: Image.network(
-                        listViewMealDinnerRecord.mealImage,
+                        listViewUserRecipeRecord.mealImage,
                         width: double.infinity,
                         height: 260.0,
                         fit: BoxFit.cover,
@@ -151,7 +153,7 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
                           Expanded(
                             flex: 7,
                             child: Text(
-                              listViewMealDinnerRecord.mealName,
+                              listViewUserRecipeRecord.mealName,
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
@@ -161,17 +163,52 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
                             ),
                           ),
                           FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
                             borderRadius: 8.0,
-                            buttonSize: 35.0,
-                            fillColor: FlutterFlowTheme.of(context).error,
+                            buttonSize: 48.0,
+                            fillColor:
+                                FlutterFlowTheme.of(context).secondaryText,
                             icon: FaIcon(
-                              FontAwesomeIcons.trashAlt,
+                              FontAwesomeIcons.pen,
                               color: FlutterFlowTheme.of(context).info,
                               size: 16.0,
                             ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'MEAL_CARD_USER_RECIPE_pen_ICN_ON_TAP');
+                              logFirebaseEvent('IconButton_navigate_to');
+
+                              context.pushNamed(
+                                'editRecipe',
+                                queryParameters: {
+                                  'userRef': serializeParam(
+                                    listViewUserRecipeRecord.reference,
+                                    ParamType.DocumentReference,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: FlutterFlowIconButton(
+                              borderRadius: 8.0,
+                              buttonSize: 48.0,
+                              fillColor: FlutterFlowTheme.of(context).error,
+                              icon: FaIcon(
+                                FontAwesomeIcons.trashAlt,
+                                color: FlutterFlowTheme.of(context).info,
+                                size: 16.0,
+                              ),
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'MEAL_CARD_USER_RECIPE_trashAlt_ICN_ON_TA');
+                                logFirebaseEvent('IconButton_backend_call');
+                                await listViewUserRecipeRecord.reference
+                                    .delete();
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -185,7 +222,7 @@ class _AddDinnerWidgetState extends State<AddDinnerWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 6.0, 0.0, 12.0),
                         child: Text(
-                          listViewMealDinnerRecord.mealIngredients,
+                          listViewUserRecipeRecord.mealIngredients,
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',

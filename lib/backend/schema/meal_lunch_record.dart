@@ -51,6 +51,11 @@ class MealLunchRecord extends FirestoreRecord {
   List<String> get mealDiet => _mealDiet ?? const [];
   bool hasMealDiet() => _mealDiet != null;
 
+  // "time_created" field.
+  DateTime? _timeCreated;
+  DateTime? get timeCreated => _timeCreated;
+  bool hasTimeCreated() => _timeCreated != null;
+
   void _initializeFields() {
     _mealName = snapshotData['meal_name'] as String?;
     _mealImage = snapshotData['meal_image'] as String?;
@@ -59,6 +64,7 @@ class MealLunchRecord extends FirestoreRecord {
     _mealFavorites = getDataList(snapshotData['meal_favorites']);
     _mealCalories = castToType<int>(snapshotData['meal_calories']);
     _mealDiet = getDataList(snapshotData['meal_diet']);
+    _timeCreated = snapshotData['time_created'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -100,6 +106,7 @@ Map<String, dynamic> createMealLunchRecordData({
   String? mealImage,
   String? mealIngredients,
   int? mealCalories,
+  DateTime? timeCreated,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -107,6 +114,7 @@ Map<String, dynamic> createMealLunchRecordData({
       'meal_image': mealImage,
       'meal_ingredients': mealIngredients,
       'meal_calories': mealCalories,
+      'time_created': timeCreated,
     }.withoutNulls,
   );
 
@@ -125,7 +133,8 @@ class MealLunchRecordDocumentEquality implements Equality<MealLunchRecord> {
         listEquality.equals(e1?.mealAllergens, e2?.mealAllergens) &&
         listEquality.equals(e1?.mealFavorites, e2?.mealFavorites) &&
         e1?.mealCalories == e2?.mealCalories &&
-        listEquality.equals(e1?.mealDiet, e2?.mealDiet);
+        listEquality.equals(e1?.mealDiet, e2?.mealDiet) &&
+        e1?.timeCreated == e2?.timeCreated;
   }
 
   @override
@@ -136,7 +145,8 @@ class MealLunchRecordDocumentEquality implements Equality<MealLunchRecord> {
         e?.mealAllergens,
         e?.mealFavorites,
         e?.mealCalories,
-        e?.mealDiet
+        e?.mealDiet,
+        e?.timeCreated
       ]);
 
   @override

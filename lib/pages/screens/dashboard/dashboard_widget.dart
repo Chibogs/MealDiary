@@ -1,6 +1,6 @@
-import '/components/add_breakfast_widget.dart';
-import '/components/add_dinner_widget.dart';
-import '/components/add_lunch_widget.dart';
+import '/components/meal_card_breakfast_widget.dart';
+import '/components/meal_card_dinner_widget.dart';
+import '/components/meal_card_lunch_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -37,8 +37,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DASHBOARD_PAGE_Dashboard_ON_INIT_STATE');
-      logFirebaseEvent('Dashboard_update_page_state');
-      _model.startDate = getCurrentTimestamp;
+      logFirebaseEvent('Dashboard_update_app_state');
+      FFAppState().selectedDate = getCurrentTimestamp;
       safeSetState(() {});
     });
 
@@ -59,6 +59,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -68,7 +70,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           title: Text(
-            'Calendar',
+            'Home',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Inter',
                   letterSpacing: 0.0,
@@ -194,7 +196,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         .secondaryText,
                                     weekFormat: false,
                                     weekStartsMonday: true,
-                                    initialDate: _model.startDate,
+                                    initialDate: FFAppState().selectedDate,
                                     onChange:
                                         (DateTimeRange? newSelectedDate) async {
                                       if (_model.calendarSelectedDay1 ==
@@ -206,8 +208,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       logFirebaseEvent(
                                           'DASHBOARD_Calendar_w32ggsxm_ON_DATE_SELE');
                                       logFirebaseEvent(
-                                          'Calendar_update_page_state');
-                                      _model.startDate =
+                                          'Calendar_update_app_state');
+                                      FFAppState().selectedDate =
                                           _model.calendarSelectedDay1?.start;
                                       safeSetState(() {});
                                       safeSetState(() {});
@@ -287,7 +289,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                 'IconButton_navigate_to');
 
                                             context
-                                                .pushNamed('InsertBreakfast');
+                                                .pushNamed('createBreakfast');
                                           },
                                         ),
                                       ),
@@ -295,9 +297,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   ),
                                 ),
                                 wrapWithModel(
-                                  model: _model.addBreakfastModel1,
+                                  model: _model.mealCardBreakfastModel1,
                                   updateCallback: () => safeSetState(() {}),
-                                  child: AddBreakfastWidget(),
+                                  child: MealCardBreakfastWidget(),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -338,16 +340,16 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           logFirebaseEvent(
                                               'IconButton_navigate_to');
 
-                                          context.pushNamed('InsertLunch');
+                                          context.pushNamed('createLunch');
                                         },
                                       ),
                                     ],
                                   ),
                                 ),
                                 wrapWithModel(
-                                  model: _model.addLunchModel1,
+                                  model: _model.mealCardLunchModel1,
                                   updateCallback: () => safeSetState(() {}),
-                                  child: AddLunchWidget(),
+                                  child: MealCardLunchWidget(),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -388,7 +390,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             logFirebaseEvent(
                                                 'IconButton_navigate_to');
 
-                                            context.pushNamed('InsertDinner');
+                                            context.pushNamed('createDinner');
                                           },
                                         ),
                                       ),
@@ -396,9 +398,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   ),
                                 ),
                                 wrapWithModel(
-                                  model: _model.addDinnerModel1,
+                                  model: _model.mealCardDinnerModel1,
                                   updateCallback: () => safeSetState(() {}),
-                                  child: AddDinnerWidget(),
+                                  child: MealCardDinnerWidget(),
                                 ),
                               ],
                             ),
@@ -438,7 +440,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         .secondaryText,
                                     weekFormat: true,
                                     weekStartsMonday: true,
-                                    initialDate: _model.startDate,
+                                    initialDate: FFAppState().selectedDate,
                                     onChange:
                                         (DateTimeRange? newSelectedDate) async {
                                       if (_model.calendarSelectedDay2 ==
@@ -449,6 +451,11 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           newSelectedDate;
                                       logFirebaseEvent(
                                           'DASHBOARD_Calendar_3pbak5h1_ON_DATE_SELE');
+                                      logFirebaseEvent(
+                                          'Calendar_update_app_state');
+                                      FFAppState().selectedDate =
+                                          _model.calendarSelectedDay2?.start;
+                                      safeSetState(() {});
                                       safeSetState(() {});
                                     },
                                     titleStyle: FlutterFlowTheme.of(context)
@@ -534,7 +541,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                     'IconButton_navigate_to');
 
                                                 context
-                                                    .pushNamed('InsertLunch');
+                                                    .pushNamed('createLunch');
                                               },
                                             ),
                                           ),
@@ -542,9 +549,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       ),
                                     ),
                                     wrapWithModel(
-                                      model: _model.addBreakfastModel2,
+                                      model: _model.mealCardBreakfastModel2,
                                       updateCallback: () => safeSetState(() {}),
-                                      child: AddBreakfastWidget(),
+                                      child: MealCardBreakfastWidget(),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -589,16 +596,16 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               logFirebaseEvent(
                                                   'IconButton_navigate_to');
 
-                                              context.pushNamed('InsertLunch');
+                                              context.pushNamed('createLunch');
                                             },
                                           ),
                                         ],
                                       ),
                                     ),
                                     wrapWithModel(
-                                      model: _model.addLunchModel2,
+                                      model: _model.mealCardLunchModel2,
                                       updateCallback: () => safeSetState(() {}),
-                                      child: AddLunchWidget(),
+                                      child: MealCardLunchWidget(),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -642,7 +649,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                     'IconButton_navigate_to');
 
                                                 context
-                                                    .pushNamed('InsertLunch');
+                                                    .pushNamed('createLunch');
                                               },
                                             ),
                                           ),
@@ -650,9 +657,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       ),
                                     ),
                                     wrapWithModel(
-                                      model: _model.addDinnerModel2,
+                                      model: _model.mealCardDinnerModel2,
                                       updateCallback: () => safeSetState(() {}),
-                                      child: AddDinnerWidget(),
+                                      child: MealCardDinnerWidget(),
                                     ),
                                   ],
                                 ),

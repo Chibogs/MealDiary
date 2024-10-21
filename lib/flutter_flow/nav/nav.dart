@@ -124,36 +124,107 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Dashboard',
               path: 'dashboard',
+              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'Dashboard')
                   : DashboardWidget(),
             ),
             FFRoute(
-              name: 'InsertLunch',
-              path: 'insertLunch',
-              builder: (context, params) => InsertLunchWidget(),
+              name: 'createLunch',
+              path: 'createLunch',
+              requireAuth: true,
+              builder: (context, params) => CreateLunchWidget(),
             ),
             FFRoute(
-              name: 'Recipes',
-              path: 'recipes',
+              name: 'dashboardRecipes',
+              path: 'dashboardRecipes',
+              requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Recipes')
-                  : RecipesWidget(),
+                  ? NavBarPage(initialPage: 'dashboardRecipes')
+                  : DashboardRecipesWidget(),
             ),
             FFRoute(
-              name: 'InsertRecipe',
-              path: 'insertRecipe',
-              builder: (context, params) => InsertRecipeWidget(),
+              name: 'createRecipe',
+              path: 'createRecipe',
+              requireAuth: true,
+              builder: (context, params) => CreateRecipeWidget(),
             ),
             FFRoute(
-              name: 'InsertBreakfast',
-              path: 'insertBreakfast',
-              builder: (context, params) => InsertBreakfastWidget(),
+              name: 'createBreakfast',
+              path: 'createBreakfast',
+              requireAuth: true,
+              builder: (context, params) => CreateBreakfastWidget(),
             ),
             FFRoute(
-              name: 'InsertDinner',
-              path: 'insertDinner',
-              builder: (context, params) => InsertDinnerWidget(),
+              name: 'createDinner',
+              path: 'createDinner',
+              requireAuth: true,
+              builder: (context, params) => CreateDinnerWidget(),
+            ),
+            FFRoute(
+              name: 'editBreakfast',
+              path: 'editBreakfast',
+              requireAuth: true,
+              builder: (context, params) => EditBreakfastWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['meal_breakfast'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'editDinner',
+              path: 'editDinner',
+              requireAuth: true,
+              builder: (context, params) => EditDinnerWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['meal_dinner'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'editLunch',
+              path: 'editLunch',
+              requireAuth: true,
+              builder: (context, params) => EditLunchWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['meal_lunch'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'viewRecipe',
+              path: 'viewRecipe',
+              requireAuth: true,
+              builder: (context, params) => ViewRecipeWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['recipe'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'editRecipe',
+              path: 'editRecipe',
+              requireAuth: true,
+              builder: (context, params) => EditRecipeWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['user_recipe'],
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

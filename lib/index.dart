@@ -10,12 +10,22 @@ export '/pages/profile/edit_profile/edit_profile_widget.dart'
 export '/pages/onboarding/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
 export '/pages/screens/dashboard/dashboard_widget.dart' show DashboardWidget;
-export '/pages/screens/insert_lunch/insert_lunch_widget.dart'
-    show InsertLunchWidget;
-export '/pages/screens/recipes/recipes_widget.dart' show RecipesWidget;
-export '/pages/screens/insert_recipe/insert_recipe_widget.dart'
-    show InsertRecipeWidget;
-export '/pages/screens/insert_breakfast/insert_breakfast_widget.dart'
-    show InsertBreakfastWidget;
-export '/pages/screens/insert_dinner/insert_dinner_widget.dart'
-    show InsertDinnerWidget;
+export '/pages/screens/create_lunch/create_lunch_widget.dart'
+    show CreateLunchWidget;
+export '/pages/screens/dashboard_recipes/dashboard_recipes_widget.dart'
+    show DashboardRecipesWidget;
+export '/pages/screens/create_recipe/create_recipe_widget.dart'
+    show CreateRecipeWidget;
+export '/pages/screens/create_breakfast/create_breakfast_widget.dart'
+    show CreateBreakfastWidget;
+export '/pages/screens/create_dinner/create_dinner_widget.dart'
+    show CreateDinnerWidget;
+export '/pages/screens/edit_breakfast/edit_breakfast_widget.dart'
+    show EditBreakfastWidget;
+export '/pages/screens/edit_dinner/edit_dinner_widget.dart'
+    show EditDinnerWidget;
+export '/pages/screens/edit_lunch/edit_lunch_widget.dart' show EditLunchWidget;
+export '/pages/screens/view_recipe/view_recipe_widget.dart'
+    show ViewRecipeWidget;
+export '/pages/screens/edit_recipe/edit_recipe_widget.dart'
+    show EditRecipeWidget;

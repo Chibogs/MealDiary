@@ -128,7 +128,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 6.0, 0.0, 0.0),
                                     child: Text(
-                                      'As a local business, we thank you for supporting us and hope you enjoy.',
+                                      'we thank you for supporting us and hope you enjoy.',
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
