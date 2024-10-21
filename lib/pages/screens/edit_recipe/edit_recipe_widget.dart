@@ -803,6 +803,8 @@ class _EditRecipeWidgetState extends State<EditRecipeWidget> {
                                     _model.ingredientsTextController1.text,
                                 mealCalories: int.tryParse(
                                     _model.mealCalTextController.text),
+                                mealInstructions:
+                                    _model.ingredientsTextController2.text,
                               ));
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -822,7 +824,7 @@ class _EditRecipeWidgetState extends State<EditRecipeWidget> {
                               logFirebaseEvent('Button_navigate_to');
 
                               context.pushNamed(
-                                'Dashboard',
+                                'dashboardRecipes',
                                 extra: <String, dynamic>{
                                   kTransitionInfoKey: TransitionInfo(
                                     hasTransition: true,

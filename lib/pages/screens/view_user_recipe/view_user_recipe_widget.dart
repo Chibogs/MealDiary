@@ -8,11 +8,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'view_recipe_model.dart';
-export 'view_recipe_model.dart';
+import 'view_user_recipe_model.dart';
+export 'view_user_recipe_model.dart';
 
-class ViewRecipeWidget extends StatefulWidget {
-  const ViewRecipeWidget({
+class ViewUserRecipeWidget extends StatefulWidget {
+  const ViewUserRecipeWidget({
     super.key,
     required this.userRef,
   });
@@ -20,20 +20,21 @@ class ViewRecipeWidget extends StatefulWidget {
   final DocumentReference? userRef;
 
   @override
-  State<ViewRecipeWidget> createState() => _ViewRecipeWidgetState();
+  State<ViewUserRecipeWidget> createState() => _ViewUserRecipeWidgetState();
 }
 
-class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
-  late ViewRecipeModel _model;
+class _ViewUserRecipeWidgetState extends State<ViewUserRecipeWidget> {
+  late ViewUserRecipeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ViewRecipeModel());
+    _model = createModel(context, () => ViewUserRecipeModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'viewRecipe'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'viewUserRecipe'});
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -82,7 +83,7 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  logFirebaseEvent('VIEW_RECIPE_close_rounded_ICN_ON_TAP');
+                  logFirebaseEvent('VIEW_USER_RECIPE_close_rounded_ICN_ON_TA');
                   logFirebaseEvent('IconButton_navigate_back');
                   context.safePop();
                 },
@@ -97,8 +98,8 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
           child: Form(
             key: _model.formKey,
             autovalidateMode: AutovalidateMode.disabled,
-            child: StreamBuilder<RecipeRecord>(
-              stream: RecipeRecord.getDocument(widget!.userRef!),
+            child: StreamBuilder<UserRecipeRecord>(
+              stream: UserRecipeRecord.getDocument(widget!.userRef!),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
                 if (!snapshot.hasData) {
@@ -115,7 +116,7 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                   );
                 }
 
-                final columnRecipeRecord = snapshot.data!;
+                final columnUserRecipeRecord = snapshot.data!;
 
                 return Column(
                   mainAxisSize: MainAxisSize.max,
@@ -159,14 +160,15 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                               child: Image.network(
-                                                columnRecipeRecord.mealImage,
+                                                columnUserRecipeRecord
+                                                    .mealImage,
                                                 width: 400.0,
                                                 height: 300.0,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
                                             Text(
-                                              columnRecipeRecord.mealName,
+                                              columnUserRecipeRecord.mealName,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -177,7 +179,7 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                                                       ),
                                             ),
                                             Text(
-                                              'Calories: ${columnRecipeRecord.mealCalories.toString()}',
+                                              'Calories: ${columnUserRecipeRecord.mealCalories.toString()}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -208,7 +210,7 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                                                           0.0, 12.0, 0.0, 0.0),
                                                   child: Text(
                                                     functions.formatNextLine(
-                                                        columnRecipeRecord
+                                                        columnUserRecipeRecord
                                                             .mealIngredients),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -243,7 +245,7 @@ class _ViewRecipeWidgetState extends State<ViewRecipeWidget> {
                                                           0.0, 12.0, 0.0, 0.0),
                                                   child: Text(
                                                     functions.formatNextLine(
-                                                        columnRecipeRecord
+                                                        columnUserRecipeRecord
                                                             .mealInstructions),
                                                     style: FlutterFlowTheme.of(
                                                             context)

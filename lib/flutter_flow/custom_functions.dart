@@ -20,7 +20,7 @@ String returnProfileGreeting(DateTime timestamp) {
   } else if (hour >= 12 && hour < 17) {
     return "Good afternoon,";
   } else {
-    return "Goodnight,";
+    return "Good evening,";
   }
 }
 

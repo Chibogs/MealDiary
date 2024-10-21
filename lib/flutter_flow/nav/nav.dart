@@ -225,6 +225,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   collectionNamePath: ['user_recipe'],
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'viewUserRecipe',
+              path: 'viewUserRecipe',
+              requireAuth: true,
+              builder: (context, params) => ViewUserRecipeWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['user_recipe'],
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

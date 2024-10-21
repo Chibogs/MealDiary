@@ -1,13 +1,12 @@
-import '/components/meal_card_breakfast_widget.dart';
-import '/components/meal_card_dinner_widget.dart';
-import '/components/meal_card_lunch_widget.dart';
+import '/components/meal_card_breakfast/meal_card_breakfast_widget.dart';
+import '/components/meal_card_dinner/meal_card_dinner_widget.dart';
+import '/components/meal_card_lunch/meal_card_lunch_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,37 +75,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 24.0, 0.0),
-              child: badges.Badge(
-                badgeContent: Text(
-                  '1',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        color: Colors.white,
-                        letterSpacing: 0.0,
-                      ),
-                ),
-                showBadge: true,
-                shape: badges.BadgeShape.circle,
-                badgeColor: FlutterFlowTheme.of(context).primary,
-                elevation: 4.0,
-                padding: EdgeInsets.all(8.0),
-                position: badges.BadgePosition.topEnd(),
-                animationType: badges.BadgeAnimationType.scale,
-                toAnimate: true,
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                  child: Icon(
-                    Icons.chat_bubble_outline_outlined,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 24.0,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),

@@ -29,3 +29,5 @@ export '/pages/screens/view_recipe/view_recipe_widget.dart'
     show ViewRecipeWidget;
 export '/pages/screens/edit_recipe/edit_recipe_widget.dart'
     show EditRecipeWidget;
+export '/pages/screens/view_user_recipe/view_user_recipe_widget.dart'
+    show ViewUserRecipeWidget;

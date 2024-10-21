@@ -1,5 +1,5 @@
-import '/components/meal_card_recipe_widget.dart';
-import '/components/meal_card_user_recipe_widget.dart';
+import '/components/meal_card_recipe/meal_card_recipe_widget.dart';
+import '/components/meal_card_user_recipe/meal_card_user_recipe_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';

@@ -14,10 +14,6 @@ import 'package:provider/provider.dart';
 
 class MealCardUserRecipeModel
     extends FlutterFlowModel<MealCardUserRecipeWidget> {
-  ///  Local state fields for this component.
-
-  DateTime? startDate;
-
   @override
   void initState(BuildContext context) {}
 

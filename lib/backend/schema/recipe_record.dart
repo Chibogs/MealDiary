@@ -41,10 +41,10 @@ class RecipeRecord extends FirestoreRecord {
   int get mealCalories => _mealCalories ?? 0;
   bool hasMealCalories() => _mealCalories != null;
 
-  // "meal_instruction" field.
-  String? _mealInstruction;
-  String get mealInstruction => _mealInstruction ?? '';
-  bool hasMealInstruction() => _mealInstruction != null;
+  // "meal_instructions" field.
+  String? _mealInstructions;
+  String get mealInstructions => _mealInstructions ?? '';
+  bool hasMealInstructions() => _mealInstructions != null;
 
   void _initializeFields() {
     _mealName = snapshotData['meal_name'] as String?;
@@ -52,7 +52,7 @@ class RecipeRecord extends FirestoreRecord {
     _mealIngredients = snapshotData['meal_ingredients'] as String?;
     _mealAllergens = getDataList(snapshotData['meal_allergens']);
     _mealCalories = castToType<int>(snapshotData['meal_calories']);
-    _mealInstruction = snapshotData['meal_instruction'] as String?;
+    _mealInstructions = snapshotData['meal_instructions'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -93,7 +93,7 @@ Map<String, dynamic> createRecipeRecordData({
   String? mealImage,
   String? mealIngredients,
   int? mealCalories,
-  String? mealInstruction,
+  String? mealInstructions,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -101,7 +101,7 @@ Map<String, dynamic> createRecipeRecordData({
       'meal_image': mealImage,
       'meal_ingredients': mealIngredients,
       'meal_calories': mealCalories,
-      'meal_instruction': mealInstruction,
+      'meal_instructions': mealInstructions,
     }.withoutNulls,
   );
 
@@ -119,7 +119,7 @@ class RecipeRecordDocumentEquality implements Equality<RecipeRecord> {
         e1?.mealIngredients == e2?.mealIngredients &&
         listEquality.equals(e1?.mealAllergens, e2?.mealAllergens) &&
         e1?.mealCalories == e2?.mealCalories &&
-        e1?.mealInstruction == e2?.mealInstruction;
+        e1?.mealInstructions == e2?.mealInstructions;
   }
 
   @override
@@ -129,7 +129,7 @@ class RecipeRecordDocumentEquality implements Equality<RecipeRecord> {
         e?.mealIngredients,
         e?.mealAllergens,
         e?.mealCalories,
-        e?.mealInstruction
+        e?.mealInstructions
       ]);
 
   @override

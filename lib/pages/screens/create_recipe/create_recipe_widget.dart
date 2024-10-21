@@ -704,7 +704,8 @@ class _CreateRecipeWidgetState extends State<CreateRecipeWidget> {
                                     _model.ingredientsTextController.text,
                                 mealCalories: int.tryParse(
                                     _model.caloriesTextController.text),
-                                mealInstructions: '',
+                                mealInstructions:
+                                    _model.instructionsTextController.text,
                               ));
                           logFirebaseEvent('Button_navigate_to');
 

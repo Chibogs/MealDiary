@@ -1,6 +1,6 @@
-import '/components/meal_card_breakfast_widget.dart';
-import '/components/meal_card_dinner_widget.dart';
-import '/components/meal_card_lunch_widget.dart';
+import '/components/meal_card_breakfast/meal_card_breakfast_widget.dart';
+import '/components/meal_card_dinner/meal_card_dinner_widget.dart';
+import '/components/meal_card_lunch/meal_card_lunch_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dashboard_widget.dart' show DashboardWidget;
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
