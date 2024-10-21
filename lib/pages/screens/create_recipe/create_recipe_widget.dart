@@ -706,6 +706,7 @@ class _CreateRecipeWidgetState extends State<CreateRecipeWidget> {
                                     _model.caloriesTextController.text),
                                 mealInstructions:
                                     _model.instructionsTextController.text,
+                                uid: currentUserUid,
                               ));
                           logFirebaseEvent('Button_navigate_to');
 

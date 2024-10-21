@@ -426,9 +426,13 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Container(
                   color: Colors.transparent,
-                  child: Image.asset(
-                    'assets/images/icon-removebg-preview.png',
-                    fit: BoxFit.contain,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/icon-removebg-preview.png',
+                      width: 250.0,
+                      height: 250.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 )
               : page;

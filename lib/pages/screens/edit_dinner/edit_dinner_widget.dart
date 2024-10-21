@@ -677,6 +677,7 @@ class _EditDinnerWidgetState extends State<EditDinnerWidget> {
                                 mealCalories: int.tryParse(
                                     _model.mealCalTextController.text),
                                 timeCreated: FFAppState().selectedDate,
+                                uid: currentUserUid,
                               ));
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(

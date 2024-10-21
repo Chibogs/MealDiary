@@ -601,6 +601,7 @@ class _CreateLunchWidgetState extends State<CreateLunchWidget> {
                                 mealCalories: int.tryParse(
                                     _model.mealCalTextController.text),
                                 timeCreated: FFAppState().selectedDate,
+                                uid: currentUserUid,
                               ));
                           logFirebaseEvent('Button_navigate_to');
 

@@ -805,6 +805,7 @@ class _EditRecipeWidgetState extends State<EditRecipeWidget> {
                                     _model.mealCalTextController.text),
                                 mealInstructions:
                                     _model.ingredientsTextController2.text,
+                                uid: currentUserUid,
                               ));
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(
