@@ -59,8 +59,8 @@ class _GettingStartedWidgetState extends State<GettingStartedWidget> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          'https://picsum.photos/seed/122/600',
+                        child: Image.asset(
+                          'assets/images/icon-removebg-preview.png',
                           width: 200.0,
                           height: 200.0,
                           fit: BoxFit.cover,
