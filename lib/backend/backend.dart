@@ -6,13 +6,10 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
-import 'schema/feedback_record.dart';
-import 'schema/support_center_record.dart';
 import 'schema/meal_breakfast_record.dart';
 import 'schema/meal_lunch_record.dart';
 import 'schema/meal_dinner_record.dart';
 import 'schema/recipe_record.dart';
-import 'schema/categories_record.dart';
 import 'schema/user_recipe_record.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -23,13 +20,10 @@ export 'schema/util/firestore_util.dart';
 export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
-export 'schema/feedback_record.dart';
-export 'schema/support_center_record.dart';
 export 'schema/meal_breakfast_record.dart';
 export 'schema/meal_lunch_record.dart';
 export 'schema/meal_dinner_record.dart';
 export 'schema/recipe_record.dart';
-export 'schema/categories_record.dart';
 export 'schema/user_recipe_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
@@ -64,80 +58,6 @@ Future<List<UsersRecord>> queryUsersRecordOnce({
     queryCollectionOnce(
       UsersRecord.collection,
       UsersRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query FeedbackRecords (as a Stream and as a Future).
-Future<int> queryFeedbackRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      FeedbackRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<FeedbackRecord>> queryFeedbackRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      FeedbackRecord.collection,
-      FeedbackRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<FeedbackRecord>> queryFeedbackRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      FeedbackRecord.collection,
-      FeedbackRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query SupportCenterRecords (as a Stream and as a Future).
-Future<int> querySupportCenterRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      SupportCenterRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<SupportCenterRecord>> querySupportCenterRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      SupportCenterRecord.collection,
-      SupportCenterRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<SupportCenterRecord>> querySupportCenterRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      SupportCenterRecord.collection,
-      SupportCenterRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -286,43 +206,6 @@ Future<List<RecipeRecord>> queryRecipeRecordOnce({
     queryCollectionOnce(
       RecipeRecord.collection,
       RecipeRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query CategoriesRecords (as a Stream and as a Future).
-Future<int> queryCategoriesRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      CategoriesRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<CategoriesRecord>> queryCategoriesRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      CategoriesRecord.collection,
-      CategoriesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<CategoriesRecord>> queryCategoriesRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      CategoriesRecord.collection,
-      CategoriesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

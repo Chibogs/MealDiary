@@ -56,6 +56,11 @@ class MealLunchRecord extends FirestoreRecord {
   DateTime? get timeCreated => _timeCreated;
   bool hasTimeCreated() => _timeCreated != null;
 
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
+
   void _initializeFields() {
     _mealName = snapshotData['meal_name'] as String?;
     _mealImage = snapshotData['meal_image'] as String?;
@@ -65,6 +70,7 @@ class MealLunchRecord extends FirestoreRecord {
     _mealCalories = castToType<int>(snapshotData['meal_calories']);
     _mealDiet = getDataList(snapshotData['meal_diet']);
     _timeCreated = snapshotData['time_created'] as DateTime?;
+    _uid = snapshotData['uid'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -107,6 +113,7 @@ Map<String, dynamic> createMealLunchRecordData({
   String? mealIngredients,
   int? mealCalories,
   DateTime? timeCreated,
+  String? uid,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -115,6 +122,7 @@ Map<String, dynamic> createMealLunchRecordData({
       'meal_ingredients': mealIngredients,
       'meal_calories': mealCalories,
       'time_created': timeCreated,
+      'uid': uid,
     }.withoutNulls,
   );
 
@@ -134,7 +142,8 @@ class MealLunchRecordDocumentEquality implements Equality<MealLunchRecord> {
         listEquality.equals(e1?.mealFavorites, e2?.mealFavorites) &&
         e1?.mealCalories == e2?.mealCalories &&
         listEquality.equals(e1?.mealDiet, e2?.mealDiet) &&
-        e1?.timeCreated == e2?.timeCreated;
+        e1?.timeCreated == e2?.timeCreated &&
+        e1?.uid == e2?.uid;
   }
 
   @override
@@ -146,7 +155,8 @@ class MealLunchRecordDocumentEquality implements Equality<MealLunchRecord> {
         e?.mealFavorites,
         e?.mealCalories,
         e?.mealDiet,
-        e?.timeCreated
+        e?.timeCreated,
+        e?.uid
       ]);
 
   @override

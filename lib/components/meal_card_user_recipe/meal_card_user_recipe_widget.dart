@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -79,7 +80,12 @@ class _MealCardUserRecipeWidgetState extends State<MealCardUserRecipeWidget>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<UserRecipeRecord>>(
-      stream: queryUserRecipeRecord(),
+      stream: queryUserRecipeRecord(
+        queryBuilder: (userRecipeRecord) => userRecipeRecord.where(
+          'uid',
+          isEqualTo: currentUserUid,
+        ),
+      ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {

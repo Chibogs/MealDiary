@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -81,10 +82,15 @@ class _MealCardDinnerWidgetState extends State<MealCardDinnerWidget>
 
     return StreamBuilder<List<MealDinnerRecord>>(
       stream: queryMealDinnerRecord(
-        queryBuilder: (mealDinnerRecord) => mealDinnerRecord.where(
-          'time_created',
-          isEqualTo: FFAppState().selectedDate,
-        ),
+        queryBuilder: (mealDinnerRecord) => mealDinnerRecord
+            .where(
+              'time_created',
+              isEqualTo: FFAppState().selectedDate,
+            )
+            .where(
+              'uid',
+              isEqualTo: currentUserUid,
+            ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
