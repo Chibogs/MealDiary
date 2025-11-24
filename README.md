@@ -24,9 +24,11 @@ For every meal entry, the user may provide:
 - Meal **name**
 - Meal **calories**
 - Meal **ingredients**
+<img src ="https://github.com/user-attachments/assets/533ca7c4-d7de-481c-8673-7ab145e96f23" width ="300">
 
 All entered meals appear below the calendar for the chosen date.
-![Image](https://github.com/user-attachments/assets/ff22eb71-a050-438f-8289-c344f00b8fa2)
+
+<img src="https://github.com/user-attachments/assets/c251f523-092f-4a74-8c0f-23d287663f3a" width="300">
 
 ## 📖 Recipes Section
 
@@ -40,6 +42,8 @@ Users can create their own recipes with:
 ### **Our Recipes**
 A curated collection of built-in recipes provided by the app.
 
+<img src="https://github.com/user-attachments/assets/45db09e5-097c-4a5c-a24e-944e036f020f" width="300">
+
 ## 🛠️ Tech Stack
 
 **Frontend:**
@@ -50,4 +54,7 @@ A curated collection of built-in recipes provided by the app.
 **Backend:**
 - Firebase Authentication  
 - Cloud Firestore  
-- Firebase Storage  
+- Firebase Storage
+
+## Screenshots of the UI
+<img width="1920" height="1080" alt="Screenshots" src="https://github.com/user-attachments/assets/b7a41a24-a280-4606-aa09-59df2dac13ea" />
